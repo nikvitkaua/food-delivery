@@ -165,6 +165,13 @@ a {
 .tabcontent {
   width: 850px;
   position: relative;
+  opacity: 0;
+  display: none;
+  transition: 0.3s;
+}
+.tabcontent--active {
+  opacity: 1;
+  display: block;
 }
 .tabcontent img {
   width: 100%;
