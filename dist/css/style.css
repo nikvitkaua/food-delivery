@@ -631,3 +631,9 @@ a {
   width: 280px;
   margin: 0 auto;
 }
+.modal.show {
+  display: flex;
+}
+.modal.hide {
+  display: none;
+}
