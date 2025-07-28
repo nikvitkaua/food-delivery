@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function removeActiveClass(parent, activeClass) {
     parent.querySelector(`.${activeClass}`).classList.remove(activeClass);
   }
-  ;
 
   // Timer
   const deadline = "2025-10-16",
@@ -77,18 +76,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-  ;
   setClock(".timer", deadline);
 
   // Modal
   const modal = document.querySelector(".modal"),
     modalCloseBtn = document.querySelector("[data-close]"),
     modalTriggers = document.querySelectorAll("[data-modal]");
+  function modalClose() {
+    modal.classList.toggle("show");
+    document.body.style.overflow = "";
+  }
+  function modalShow() {
+    modal.classList.toggle("show");
+    document.body.style.overflow = "hidden";
+    clearInterval(modalTimerId);
+  }
   modalTriggers.forEach(item => {
-    item.addEventListener("click", () => {
-      modal.classList.toggle("show");
-      document.body.style.overflow = "hidden";
-    });
+    item.addEventListener("click", modalShow);
   });
   modalCloseBtn.addEventListener("click", modalClose);
   modal.addEventListener("click", e => {
@@ -101,10 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
       modalClose();
     }
   });
-  function modalClose() {
-    modal.classList.toggle("show");
-    document.body.style.overflow = "";
+  const modalTimerId = setTimeout(modalShow, 10000);
+  function modalShowByScroll() {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+      modalShow();
+      window.removeEventListener("scroll", modalShowByScroll);
+    }
   }
+  window.addEventListener("scroll", modalShowByScroll);
 });
 /******/ })()
 ;

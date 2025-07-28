@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function removeActiveClass(parent, activeClass) {
         parent.querySelector(`.${activeClass}`).classList.remove(activeClass);
-    };
+    }
 
     // Timer
     const deadline = "2025-10-16",
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             days: days,
             hours: hours,
             minutes: minutes,
-            seconds: seconds
+            seconds: seconds,
         };
     }
 
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearInterval(timeInterval);
             }
         }
-    };
+    }
 
     setClock(".timer", deadline);
 
@@ -94,11 +94,19 @@ document.addEventListener("DOMContentLoaded", () => {
         modalCloseBtn = document.querySelector("[data-close]"),
         modalTriggers = document.querySelectorAll("[data-modal]");
 
-    modalTriggers.forEach(item => {
-        item.addEventListener("click", () => {
-            modal.classList.toggle("show");
-            document.body.style.overflow = "hidden";
-        });
+    function modalClose() {
+        modal.classList.toggle("show");
+        document.body.style.overflow = "";
+    }
+
+    function modalShow() {
+        modal.classList.toggle("show");
+        document.body.style.overflow = "hidden";
+        clearInterval(modalTimerId);
+    }
+
+    modalTriggers.forEach((item) => {
+        item.addEventListener("click", modalShow);
     });
 
     modalCloseBtn.addEventListener("click", modalClose);
@@ -115,8 +123,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    function modalClose() {
-        modal.classList.toggle("show");
-        document.body.style.overflow = "";
+    const modalTimerId = setTimeout(modalShow, 10000);
+
+    function modalShowByScroll() {
+        if (
+            window.pageYOffset + document.documentElement.clientHeight >=
+            document.documentElement.scrollHeight
+        ) {
+            modalShow();
+            window.removeEventListener("scroll", modalShowByScroll);
+        }
     }
+
+    window.addEventListener("scroll", modalShowByScroll);
 });
