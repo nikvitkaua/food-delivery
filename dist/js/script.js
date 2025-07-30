@@ -118,12 +118,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Menu cards
   class MenuCard {
-    constructor(imgUrl, title, text, price, parentSelector) {
+    constructor(imgUrl, title, text, price, parentSelector, ...classes) {
       this.imgUrl = imgUrl;
       this.title = title;
       this.text = text;
       this.price = price;
       this.parent = document.querySelector(parentSelector);
+      this.classes = classes;
       this.transfer = 41;
       this.changeToUSD();
     }
@@ -132,7 +133,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     render() {
       const div = document.createElement("div");
-      div.classList.add("menu__item");
+      if (this.classes.length === 0) {
+        this.classes = "menu__item";
+        div.classList.add(this.classes);
+      } else {
+        this.classes.forEach(className => div.classList.add(className));
+      }
       div.innerHTML = `
                 <img src="${this.imgUrl}" alt="${this.title}">
                 <h3 class="menu__item-subtitle">${this.title}</h3>
@@ -146,9 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
       this.parent.append(div);
     }
   }
-  const menuFitness = new MenuCard("img/tabs/vegy.jpg", 'Menu "Fitness"', "The Fitness menu is a new approach to cooking: more fresh fruits and vegetables. The product of active and healthy people. It is a completely new product with optimal price and high quality!", 9389, ".menu__field .container");
-  const menuPremium = new MenuCard("img/tabs/elite.jpg", 'Menu "Premium"', "In the “Premium” menu we use not only beautiful packaging design, but also high-quality execution of dishes. Red fish, seafood, fruits - a restaurant menu without going to a restaurant!", 22550, ".menu__field .container");
-  const menuLenten = new MenuCard("img/tabs/post.jpg", 'Menu "Lenten"', "The Lenten menu is a careful selection of ingredients: no animal products at all, milk made from almonds, oats, coconut or buckwheat, the right amount of protein through tofu and imported vegetarian steaks.", 17630, ".menu__field .container");
+  const menuFitness = new MenuCard("img/tabs/vegy.jpg", 'Menu "Fitness"', "The Fitness menu is a new approach to cooking: more fresh fruits and vegetables. The product of active and healthy people. It is a completely new product with optimal price and high quality!", 9389, ".menu__field .container", "menu__item");
+  const menuPremium = new MenuCard("img/tabs/elite.jpg", 'Menu "Premium"', "In the “Premium” menu we use not only beautiful packaging design, but also high-quality execution of dishes. Red fish, seafood, fruits - a restaurant menu without going to a restaurant!", 22550, ".menu__field .container", "menu__item");
+  const menuLenten = new MenuCard("img/tabs/post.jpg", 'Menu "Lenten"', "The Lenten menu is a careful selection of ingredients: no animal products at all, milk made from almonds, oats, coconut or buckwheat, the right amount of protein through tofu and imported vegetarian steaks.", 17630, ".menu__field .container", "menu__item");
   menuFitness.render();
   menuPremium.render();
   menuLenten.render();
