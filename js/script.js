@@ -177,33 +177,29 @@ window.addEventListener("DOMContentLoaded", function () {
             this.parent.append(div);
         }
     }
-    const menuFitness = new MenuCard(
-        "img/tabs/vegy.jpg",
-        'Menu "Fitness"',
-        "The Fitness menu is a new approach to cooking: more fresh fruits and vegetables. The product of active and healthy people. It is a completely new product with optimal price and high quality!",
-        9389,
-        ".menu__field .container",
-        "menu__item"
-    );
-    const menuPremium = new MenuCard(
-        "img/tabs/elite.jpg",
-        'Menu "Premium"',
-        "In the “Premium” menu we use not only beautiful packaging design, but also high-quality execution of dishes. Red fish, seafood, fruits - a restaurant menu without going to a restaurant!",
-        22550,
-        ".menu__field .container",
-        "menu__item"
-    );
-    const menuLenten = new MenuCard(
-        "img/tabs/post.jpg",
-        'Menu "Lenten"',
-        "The Lenten menu is a careful selection of ingredients: no animal products at all, milk made from almonds, oats, coconut or buckwheat, the right amount of protein through tofu and imported vegetarian steaks.",
-        17630,
-        ".menu__field .container",
-        "menu__item"
-    );
-    menuFitness.render();
-    menuPremium.render();
-    menuLenten.render();
+
+    const getResource = async (url) => {
+        const res = await fetch(url);
+
+        if (!res.ok) {
+            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+        }
+
+        return await res.json();
+    };
+
+    axios.get("http://localhost:3000/menu")
+        .then(data => {
+            data.data.forEach(({ img, title, descr, price }) => {
+                new MenuCard(
+                    img,
+                    title,
+                    descr,
+                    price,
+                    ".menu .container"
+                ).render();
+            });
+        })
 
     // Forms
 

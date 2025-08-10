@@ -5,7 +5,7 @@
       "altimg": "vegy",
       "title": "Menu 'Fitness'",
       "descr": "The Fitness menu is a new approach to cooking: more fresh fruits and vegetables. The product of active and healthy people. It is a completely new product with optimal price and high quality!",
-      "price": 9,
+      "price": 243,
       "id": "4472"
     },
     {
@@ -13,7 +13,7 @@
       "altimg": "post",
       "title": "Menu 'Lenten'",
       "descr": "The Lenten menu is a careful selection of ingredients: no animal products at all, milk made from almonds, oats, coconut or buckwheat, the right amount of protein through tofu and imported vegetarian steaks.",
-      "price": 14,
+      "price": 378,
       "id": "ab01"
     },
     {
@@ -21,7 +21,7 @@
       "altimg": "elite",
       "title": "Menu 'Premium'",
       "descr": "In the “Premium” menu we use not only beautiful packaging design, but also high-quality execution of dishes. Red fish, seafood, fruits - a restaurant menu without going to a restaurant!",
-      "price": 21,
+      "price": 567,
       "id": "a4b4"
     }
   ],
